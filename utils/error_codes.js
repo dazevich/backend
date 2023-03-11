@@ -3,3 +3,6 @@ export const USER_ALREADY_EXIST = 1;
 export const INVALID_AUTH_DATA = 2;
 export const ACCESS_DENIED = 3;
 export const VALIDATION_ERROR = 4;
+export const DELETE_POST_ERROR = 5;
+export const BAD_FILTERS_VALUE = 6;
+export const UPDATE_POST_ERROR = 7;

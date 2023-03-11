@@ -1,11 +1,18 @@
 import PostModel from '../models/Post.js';
 import response from '../utils/response.js';
 import { validationResult } from 'express-validator';
-import { INTERNAL_SERVER_ERROR, VALIDATION_ERROR } from '../utils/error_codes.js';
+import { INTERNAL_SERVER_ERROR, UPDATE_POST_ERROR, VALIDATION_ERROR } from '../utils/error_codes.js';
 
 export const fetchAll = async (req, res) => {
+
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        return response.error(res, 400, VALIDATION_ERROR, errors);
+    }
+
     try {
-        const {user, from, to} = req.query;
+        const {user, from, to, tags} = req.query;
+        console.log(user);
         const filters = {
             ...(user != undefined && {user: user}),
             ...((from != undefined || to != undefined) && {updatedAt: {
@@ -28,8 +35,6 @@ export const create = async (req, res) => {
     if(!errors.isEmpty()) {
         return response.error(res, 400, VALIDATION_ERROR, errors);
     }
-
-    console.log(req.context);
 
     try {
         const doc = new PostModel({
@@ -60,6 +65,37 @@ export const fetchById = async (req, res) => {
     }
 }
 
-export const update = async (req, res) => {}
+export const update = async (req, res) => {
+    try {
+        const postId = req.params.id;
 
-export const deleteById = async (req, res) => {}
+        const {modifiedCount, ..._} = await PostModel.updateOne(
+            {
+                _id: postId
+            },
+            {
+                title: req.body.title,
+                text: req.body.text,
+                tags: req.body.tags,
+                imageUrl: req.body.imageUrl,
+                views: req.body.views,
+                user: req.context._id,
+            
+            });
+    
+        response.success(res, modifiedCount);
+    } catch (error) {
+        response.error(res, 500, UPDATE_POST_ERROR, error);
+    }
+}
+
+export const deleteById = async (req, res) => {
+    try {
+        console.log(req.params.id);
+        const result = await PostModel.findOneAndDelete({_id: req.params.id});
+        return response.success(res, result);
+    } catch (error) {
+        console.error(error);
+        return response.error(res, 500, INTERNAL_SERVER_ERROR, error);
+    }
+}
