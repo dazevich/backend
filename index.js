@@ -5,8 +5,11 @@ import {default as postsRouter} from './routes/post/Post.js';
 import {authCheck, filesUploader, pageNotFound, logger}
   from './middlewares/index.js';
 import dotenv from 'dotenv';
+import minimist from 'minimist';
 
-dotenv.config();
+const MODE = minimist(process.argv.slice(2)).mode;
+
+dotenv.config({path: `./env/${MODE}.env`});
 
 const env = process.env;
 const DB_ADDR = env.DB_ADDR;
