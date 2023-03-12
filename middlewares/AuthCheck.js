@@ -18,9 +18,9 @@ export const authCheck = async (req, _, next) => {
   const user = await UserModel.findById(payload._id);
 
   // eslint-disable-next-line no-unused-vars
-  const {__, ...userData} = user._doc;
+  const {passHash, createdAt, updatedAt, __v, ...userData} = user._doc;
 
-  req.context = {...userData};
+  req.user = {...userData};
 
   next();
 };

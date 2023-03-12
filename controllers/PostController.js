@@ -7,7 +7,7 @@ import {INTERNAL_SERVER_ERROR, UPDATE_POST_ERROR, VALIDATION_ERROR}
 /**
  * Возвращает список постов из базы
  * @param {*} req - реквест
- * @param {*} res - реквест
+ * @param {*} res - ответ
  * @param {String} req.query.user - автор статьи
  * @param {Date} req.query.from - с какой даты получить посты
  * @param {Date} req.query.to - по какую дату получить посты
@@ -32,9 +32,9 @@ export const fetchAll = async (req, res) => {
 };
 
 /**
- * @param {*} req - реквест
- * @param {*} res - реквест
  * Создать пост
+ * @param {*} req - реквест
+ * @param {*} res - ответ
  */
 export const create = async (req, res) => {
   const errors = validationResult(req);
@@ -63,7 +63,7 @@ export const create = async (req, res) => {
 /**
  * Получить пост по id
  * @param {*} req - реквест
- * @param {*} res - реквест
+ * @param {*} res - ответ
  * @param {String} req.param.id
  */
 export const fetchById = async (req, res) => {
@@ -79,7 +79,7 @@ export const fetchById = async (req, res) => {
 /**
  * Обновить пост
  * @param {*} req - реквест
- * @param {*} res - реквест
+ * @param {*} res - ответ
  **/
 export const update = async (req, res) => {
   try {
@@ -109,7 +109,7 @@ export const update = async (req, res) => {
 /**
  * Удалить пост
  * @param {*} req - реквест
- * @param {*} res - реквест
+ * @param {*} res - ответ
  **/
 export const deleteById = async (req, res) => {
   try {

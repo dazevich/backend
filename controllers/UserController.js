@@ -1,4 +1,3 @@
-import {validationResult} from 'express-validator';
 import jwt from 'jsonwebtoken';
 import response from '../utils/response.js';
 import UserModel from '../models/User.js';
@@ -6,8 +5,10 @@ import bcrypt from 'bcrypt';
 
 /**
  * Регистрация пользователя
+ * @param {*} req - реквест
+ * @param {*} res - ответ
  * @param {*} req.body.name - имя пользователя
- * @param {*} req.body.login - логин (угикальный)
+ * @param {*} req.body.login - логин (уникальный)
  * @param {*} req.body.password - пароль
  * */
 export const register = async (req, res) => {
@@ -50,6 +51,8 @@ export const register = async (req, res) => {
 
 /**
  * Авторизация пользователя
+ * @param {*} req - реквест
+ * @param {*} res - ответ
  * @param {*} req.body.login - логин
  * @param {*} req.body.password - пароль
  * */

@@ -2,7 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import {default as authRouter} from './routes/auth/Auth.js';
 import {default as postsRouter} from './routes/post/Post.js';
-import {authCheck, filesUploader, pageNotFound, logger} from './middlewares/index.js';
+import {authCheck, filesUploader, pageNotFound, logger}
+  from './middlewares/index.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
