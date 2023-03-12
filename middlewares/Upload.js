@@ -9,10 +9,10 @@ const router = new Router();
 
 const storage = multer.diskStorage({
   destination: (req, __, cb) => {
-    const id = req.context._id;
+    const id = req.user._id;
     const path = `uploads/${id}`;
     fs.mkdirSync(path, {recursive: true});
-    return cb(null, `uploads/${req.context._id}`);
+    return cb(null, `uploads/${req.user._id}`);
   },
   filename: (_, file, cb) => {
     cb(null, file.originalname);
@@ -24,7 +24,7 @@ const upload = multer({storage});
 router.use('/uploads', express.static('uploads'));
 
 router.post('/upload', authCheck, upload.single('image'), (req, res) => {
-  const id = req.context._id;
+  const id = req.user._id;
   const path = `uploads/${id}/${req.file.originalname}`;
   response.success(res, path);
 });
