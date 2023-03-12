@@ -6,3 +6,4 @@ export const VALIDATION_ERROR = 4;
 export const DELETE_POST_ERROR = 5;
 export const BAD_FILTERS_VALUE = 6;
 export const UPDATE_POST_ERROR = 7;
+export const ENDPOINT_NOT_EXIST = 8;
